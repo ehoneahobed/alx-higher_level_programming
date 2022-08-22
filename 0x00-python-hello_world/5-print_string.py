@@ -1,3 +1,4 @@
 #!/usr/bin/python3
 str = "Holberton School"
-print(f"{3 * str} \n{str[:10]}")
+print(str + str + str)
+print(str[:9])
