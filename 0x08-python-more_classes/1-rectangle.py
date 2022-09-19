@@ -3,7 +3,15 @@
 
 
 class Rectangle:
-    """An empty class that represents a rectangle"""
+    """Initializing this rectangle class
+        Args:
+            width: represents the width of the rectangle defined
+            height: represents the height of the rectangle
+        
+        Raises:
+            TypeError: if size is not integer
+            ValueError: if size is less than zero
+        """
 
     def __init__(self, width=0, height=0):
         "initializes attributes for this class"
