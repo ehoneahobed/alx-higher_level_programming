@@ -5,6 +5,7 @@
 import csv
 import json
 import os
+import turtle
 
 
 class Base:
@@ -86,10 +87,10 @@ class Base:
     def save_to_file_csv(cls, list_objs):
         """Serializes list_objs and saves to file"""
 
-        if (type(list_objs) != list and list_objs is not None
-           or not all(isinstance(i, cls) for i in list_objs)):
+        # if (type(list_objs) != list and list_objs is not None
+        #    or not all(isinstance(i, cls) for i in list_objs)):
 
-            raise TypeError("list_objs must be a list of instances")
+        #     raise TypeError("list_objs must be a list of instances")
 
         # file_name = cls.__name__ + ".csv"
         # with open(file_name, 'w') as my_file:
@@ -103,18 +104,18 @@ class Base:
         #         script.writeheader()
         #         script.writerows(list_objs)
 
-        name_of_file = cls.__name__ + ".csv"
-        with open(name_of_file, "w", newline="") as nof:
+        filename = cls.__name__ + ".csv"
+        with open(filename, "w", newline="") as csvfile:
             if list_objs is None or list_objs == []:
-                nof.write("[]")
+                csvfile.write("[]")
             else:
                 if cls.__name__ == "Rectangle":
-                    records = ["id", "width", "height", "x", "y"]
+                    fieldnames = ["id", "width", "height", "x", "y"]
                 else:
-                    records = ["id", "size", "x", "y"]
-                creator = csv.DictWriter(nof, records)
+                    fieldnames = ["id", "size", "x", "y"]
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
                 for obj in list_objs:
-                    creator.writerow(obj.to_dictionary())
+                    writer.writerow(obj.to_dictionary())
 
     @classmethod
     def load_from_file_csv(cls):
@@ -138,18 +139,56 @@ class Base:
         #                 list_of_instances.append(x)
         # return list_of_instances
 
-        name_of_file = cls.__name__ + ".csv"
+        filename = cls.__name__ + ".csv"
         try:
-            with open(name_of_file, "r", newline="") as nof:
+            with open(filename, "r", newline="") as csvfile:
                 if cls.__name__ == "Rectangle":
-                    rec_instances = ["id", "width", "height", "x", "y"]
+                    fieldnames = ["id", "width", "height", "x", "y"]
                 else:
-                    sq_instances = ["id", "size", "x", "y"]
-                    list_of_dicts = csv.DictReader(nof,
-                                                   rec_instances=sq_instances)
-                    list_of_dicts = [dict([key, int(value)]
-                                     for key, value in d.items())
-                                     for d in list_of_dicts]
-                    return [cls.create(**d) for d in list_of_dicts]
+                    fieldnames = ["id", "size", "x", "y"]
+                list_dicts = csv.DictReader(csvfile, fieldnames=fieldnames)
+                list_dicts = [dict([k, int(v)] for k, v in d.items())
+                              for d in list_dicts]
+                return [cls.create(**d) for d in list_dicts]
         except IOError:
             return []
+
+    @staticmethod
+    def draw(list_rectangles, list_squares):
+        """Draw Rectangles and Squares using the turtle module.
+        Args:
+            list_rectangles (list): A list of Rectangle objects to draw.
+            list_squares (list): A list of Square objects to draw.
+        """
+        turt = turtle.Turtle()
+        turt.screen.bgcolor("#b7312c")
+        turt.pensize(3)
+        turt.shape("turtle")
+
+        turt.color("#ffffff")
+        for rect in list_rectangles:
+            turt.showturtle()
+            turt.up()
+            turt.goto(rect.x, rect.y)
+            turt.down()
+            for i in range(2):
+                turt.forward(rect.width)
+                turt.left(90)
+                turt.forward(rect.height)
+                turt.left(90)
+            turt.hideturtle()
+
+        turt.color("#b5e3d8")
+        for sq in list_squares:
+            turt.showturtle()
+            turt.up()
+            turt.goto(sq.x, sq.y)
+            turt.down()
+            for i in range(2):
+                turt.forward(sq.width)
+                turt.left(90)
+                turt.forward(sq.height)
+                turt.left(90)
+            turt.hideturtle()
+
+        turtle.exitonclick()
