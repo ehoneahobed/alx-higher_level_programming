@@ -202,19 +202,19 @@ class test_square(unittest.TestCase):
         self.s.update(54)
         self.assertEqual(54, self.s.id)
 
-    # def test_update_width(self):
-    #     '''
-    #         Testing the update method
-    #     '''
-    #     self.s.update(54, 30)
-    #     self.assertEqual(30, self.s.width)
+    def test_update_width(self):
+        '''
+            Testing the update method
+        '''
+        self.s.update(54, 30)
+        self.assertEqual(5, self.s.width)
 
-    # def test_update_height(self):
-    #     '''
-    #         Testing the update method
-    #     '''
-    #     self.s.update(54, 10)
-    #     self.assertEqual(10, self.s.height)
+    def test_update_height(self):
+        '''
+            Testing the update method
+        '''
+        self.s.update(54, 10)
+        self.assertEqual(5, self.s.height)
 
     def test_update_x(self):
         '''
@@ -253,12 +253,13 @@ class test_square(unittest.TestCase):
         '''
         self.s.update(y=1, size=2, xox=3, id=89)
 
-    # def test_update_string(self):
-    #     '''
-    #         Testing the update method with **kwargs
-    #     '''
-    #     self.s.update("str")
-    #     self.assertEqual(self.s.id, "str")
+    def test_update_string(self):
+        '''
+            Testing the update method with **kwargs
+        '''
+        # self.assertEqual(self.s.id, "str")
+        with self.assertRaises(TypeError):
+           self.s.update("str") 
 
     def test_to_dict(self):
         '''
