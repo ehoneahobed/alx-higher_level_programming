@@ -1,16 +1,17 @@
 #!/usr/bin/python3
 """Defines unittests for models/square.py.
+
 Unittest classes:
-    TestSquare_instantiation - line 22
-    TestSquare_size - line 86
-    TestSquare_x - line 164
-    TestSquare_y - line 236
-    TestSquare_order_of_initialization - line 304
-    TestSquare_area - line 320
-    TestSquare_stdout - line 341
-    TestSquare_update_args - line 424
-    TestSquare_update_kwargs - line 536
-    TestSquare_to_dictionary - 638
+    TestSquare_instantiation - line 24
+    TestSquare_size - line 88
+    TestSquare_x - line 166
+    TestSquare_y - line 238
+    TestSquare_order_of_initialization - line 306
+    TestSquare_area - line 322
+    TestSquare_stdout - line 343
+    TestSquare_update_args - line 426
+    TestSquare_update_kwargs - line 538
+    TestSquare_to_dictionary - 640
 """
 import io
 import sys
@@ -343,6 +344,7 @@ class TestSquare_stdout(unittest.TestCase):
     @staticmethod
     def capture_stdout(sq, method):
         """Captures and returns text printed to stdout.
+
         Args:
             sq (Square): The Square ot print to stdout.
             method (str): The method to run on sq.
@@ -651,7 +653,6 @@ class TestSquare_to_dictionary(unittest.TestCase):
         s = Square(10, 10, 10, 10)
         with self.assertRaises(TypeError):
             s.to_dictionary(1)
-
 
 if __name__ == "__main__":
     unittest.main()
