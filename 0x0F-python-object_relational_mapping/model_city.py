@@ -3,11 +3,8 @@
 This script defines a City class
 to work with MySQLAlchemy ORM.
 """
-
+from model_state import Base, State
 from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
 
 
 class City(Base):
