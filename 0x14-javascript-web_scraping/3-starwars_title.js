@@ -1,5 +1,4 @@
 #!/usr/bin/node
-'strict mode';
 
 const request = require('request');
 const movieId = process.argv[2];
